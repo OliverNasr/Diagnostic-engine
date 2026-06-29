@@ -4,9 +4,10 @@ Application configuration loaded from environment variables / .env file.
 All settings have sensible defaults so the service runs out of the box
 without a .env file present.
 """
-
+from pathlib import Path
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 class Settings(BaseSettings):
     """Runtime configuration for the Diagnostic Engine."""
@@ -23,7 +24,10 @@ class Settings(BaseSettings):
     # -----------------------------------------------------------------
     # Dataset
     # -----------------------------------------------------------------
-    DATASET_PATH: str = "data/dtc_dataset.csv"
+   # Absolute path to the project root
+    
+
+    DATASET_PATH: str = str(BASE_DIR / "data" / "dtc_dataset.csv")
 
     # -----------------------------------------------------------------
     # Server
