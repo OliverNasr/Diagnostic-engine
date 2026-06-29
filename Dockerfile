@@ -31,9 +31,11 @@ COPY --from=builder /install /usr/local
 # Copy application source
 COPY app/ ./app/
 
-# The dataset directory is mounted as a volume at runtime
-# but we create it here so the image is self-contained for testing
-RUN mkdir -p data && chown -R appuser:appuser /app
+# Copy the dataset
+COPY data/ ./data/
+
+# Set permissions
+RUN chown -R appuser:appuser /app
 
 USER appuser
 
