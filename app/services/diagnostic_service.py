@@ -19,8 +19,10 @@ This class has **no FastAPI dependency** and can be tested in isolation.
 from __future__ import annotations
 
 import pandas as pd
-
+from pathlib import Path
 from app.config import settings
+
+dataset_path = Path(self._dataset_path)
 from app.models.dtc import (
     DTCResponse,
     DTCSearchResult,
@@ -85,7 +87,9 @@ class DiagnosticService:
             "explanation",
             "driver_action",
         }
-
+        logger.info(f"Dataset path: {dataset_path}")
+        logger.info(f"Dataset exists: {dataset_path.exists()}")
+        
         df = pd.read_csv(self._dataset_path, dtype=str)
 
         missing = required_columns - set(df.columns)
