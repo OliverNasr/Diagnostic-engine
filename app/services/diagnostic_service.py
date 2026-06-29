@@ -22,7 +22,7 @@ import pandas as pd
 from pathlib import Path
 from app.config import settings
 
-dataset_path = Path(self._dataset_path)
+
 from app.models.dtc import (
     DTCResponse,
     DTCSearchResult,
@@ -48,7 +48,7 @@ class DiagnosticService:
     Instantiate once (via FastAPI ``Depends`` / lifespan) and share the
     instance across requests.
     """
-
+   
     def __init__(self, dataset_path: str | None = None) -> None:
         self._dataset_path: str = dataset_path or settings.DATASET_PATH
         self._df: pd.DataFrame = pd.DataFrame()
@@ -87,6 +87,7 @@ class DiagnosticService:
             "explanation",
             "driver_action",
         }
+        dataset_path = Path(self._dataset_path)
         logger.info(f"Dataset path: {dataset_path}")
         logger.info(f"Dataset exists: {dataset_path.exists()}")
         
